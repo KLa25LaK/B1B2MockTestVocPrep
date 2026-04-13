@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>模卷單字預習＋複習</title>
+    <title>模卷單字預習＋複習 - B1-1st-11402-1-2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Quicksand:wght@500;700&display=swap');
@@ -61,7 +61,7 @@
             width: 100%;
             word-break: break-all;
             overflow: hidden;
-            font-size: clamp(0.9rem, 4vw, 1.35rem); 
+            font-size: clamp(0.75rem, 3.4vw, 1.25rem); 
         }
         
         .feedback-icon {
@@ -132,9 +132,11 @@
             <div id="screen-start" class="flex flex-col items-center py-6">
                 <h1 class="text-4xl font-black text-slate-600 mb-2">模卷單字預習＋複習</h1>
                 <p class="text-3xl font-black text-slate-400 mb-4">B1-1st-11402-1-2</p>
-                <div class="flex gap-2.5 mb-8">
+                <div class="flex gap-2.5 mb-2">
                     <div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div>
                 </div>
+                <p class="text-sm font-bold text-slate-400 mb-6">目前已有 <span id="completion-count" class="text-[--primary-pink] font-black">0</span> 人次完整玩過</p>
+                
                 <button id="btn-play" class="btn-base bg-[--primary-purple] text-white h-[75px] w-full text-2xl shadow-lg" style="border-radius: 2rem;">開始測驗</button>
             </div>
 
@@ -162,18 +164,26 @@
 
     <script type="module">
         const WORDS = [
-            {en: "Perspective", ch: "(n.) 觀點；洞察力"}, {en: "Ambiguity", ch: "(n.) 模稜兩可"}, {en: "Mythology", ch: "(n.) 神話"},
-            {en: "Architecture", ch: "(n.) 建築學；建築風格"}, {en: "Observe", ch: "(v.) 觀察；遵守"}, {en: "Construct", ch: "(v.) 建造"},
-            {en: "Adventure", ch: "(n.) 冒險"}, {en: "Fragile", ch: "(adj.) 脆弱的"}, {en: "Measure", ch: "(v./n.) 測量；措施"},
-            {en: "Symbolize", ch: "(v.) 象徵"}, {en: "Manner", ch: "(n.) 方式；禮貌"}, {en: "Performance", ch: "(n.) 表演；表現"},
-            {en: "Loyal", ch: "(adj.) 忠誠的"}, {en: "Occasionally", ch: "(adv.) 偶爾"}, {en: "Punish", ch: "(v.) 懲罰"},
-            {en: "Skip", ch: "(v.) 略過"}, {en: "Truth", ch: "(n.) 真相"}, {en: "Sharp", ch: "(adj.) 銳利的；敏銳的"},
-            {en: "Unique", ch: "(adj.) 獨特的"}, {en: "Accessible", ch: "(adj.) 可接近的；可理解的"}, {en: "Discover", ch: "(v.) 發現"},
-            {en: "Constant", ch: "(adj.) 持續的；恆定的"}, {en: "Specifically", ch: "(adv.) 具體地；特別地"}, {en: "Identify", ch: "(v.) 識別；確認"}
+            {en: "perspective", ch: "(n.) 觀點；洞察力"}, {en: "ambiguity", ch: "(n.) 模稜兩可"}, {en: "mythology", ch: "(n.) 神話"},
+            {en: "architecture", ch: "(n.) 建築風格"}, {en: "observe", ch: "(v.) 觀察；遵守"}, {en: "construct", ch: "(v.) 建造"},
+            {en: "adventure", ch: "(n.) 冒險"}, {en: "fragile", ch: "(adj.) 脆弱的"}, {en: "measure", ch: "(v./n.) 測量；措施"},
+            {en: "symbolize", ch: "(v.) 象徵"}, {en: "manner", ch: "(n.) 方式；禮貌"}, {en: "performance", ch: "(n.) 表演；表現"},
+            {en: "loyal", ch: "(adj.) 忠誠的"}, {en: "occasionally", ch: "(adv.) 偶爾"}, {en: "punish", ch: "(v.) 懲罰"},
+            {en: "skip", ch: "(v.) 略過"}, {en: "truth", ch: "(n.) 真相"}, {en: "sharp", ch: "(adj.) 銳利的"},
+            {en: "unique", ch: "(adj.) 獨特的"}, {en: "accessible", ch: "(adj.) 可接近的"}, {en: "discover", ch: "(v.) 發現"},
+            {en: "constant", ch: "(adj.) 持續的"}, {en: "specifically", ch: "(adv.) 具體地"}, {en: "identify", ch: "(v.) 識別"}
         ];
 
         let currentPool = [], currentIndex = 0, correctCount = 0, wrongCount = 0;
         let wrongWords = [], currentQuestion = {}, pendingAction = null;
+        
+        const STORAGE_KEY = 'word_game_completion_count_B1_1st_11402_1_2';
+
+        function updateCompletionCountUI() {
+            const count = localStorage.getItem(STORAGE_KEY) || 0;
+            const countEl = document.getElementById('completion-count');
+            if (countEl) countEl.innerText = count;
+        }
 
         function showScreen(name) {
             ['screen-start', 'screen-quiz', 'screen-result'].forEach(id => {
@@ -184,6 +194,8 @@
             target.classList.remove('hidden'); target.classList.add('flex');
             document.getElementById('game-info').classList.toggle('hidden', name !== 'quiz');
             document.getElementById('nav-restart').classList.toggle('hidden', name === 'start');
+            
+            if (name === 'start') updateCompletionCountUI();
         }
 
         function initGame(mode = 'all') {
@@ -205,7 +217,7 @@
             document.getElementById('btn-next').classList.add('invisible');
 
             let distractors = WORDS.filter(w => w.en !== data.en).sort(() => Math.random() - 0.5).slice(0, 3).map(w => isEnToCh ? w.ch : w.en);
-            let correctPos = currentIndex % 4; 
+            let correctPos = Math.floor(Math.random() * 4);
             let options = []; let distractorIdx = 0;
             for (let i = 0; i < 4; i++) {
                 if (i === correctPos) options.push(currentQuestion.a);
@@ -262,12 +274,19 @@
             document.getElementById('result-score').innerText = `正確 ${correctCount} · 錯誤 ${wrongCount}`;
             const rb = document.getElementById('btn-review-wrong');
             if (wrongWords.length > 0) rb.classList.remove('hidden'); else rb.classList.add('hidden');
+            
+            if (currentPool.length === WORDS.length) {
+                let currentCount = parseInt(localStorage.getItem(STORAGE_KEY) || 0);
+                currentCount++;
+                localStorage.setItem(STORAGE_KEY, currentCount);
+                updateCompletionCountUI();
+            }
         }
 
         document.getElementById('nav-restart').onclick = () => {
             if (!document.getElementById('screen-quiz').classList.contains('hidden')) {
-                document.getElementById('modal-title').innerText = "重新開始遊戲？";
-                document.getElementById('modal-desc').innerText = "將回到封面，進度將被重置。";
+                document.getElementById('modal-title').innerText = "重新開始？";
+                document.getElementById('modal-desc').innerText = "進度將重置。";
                 document.getElementById('confirm-modal').style.display = 'flex';
                 pendingAction = () => showScreen('start');
             } else showScreen('start');
@@ -275,8 +294,8 @@
 
         document.getElementById('nav-home').onclick = () => {
             if (!document.getElementById('screen-quiz').classList.contains('hidden')) {
-                document.getElementById('modal-title').innerText = "回到主頁面？";
-                document.getElementById('modal-desc').innerText = "將離開遊戲，回到 index 頁面。";
+                document.getElementById('modal-title').innerText = "回到主頁？";
+                document.getElementById('modal-desc').innerText = "將離開遊戲。";
                 document.getElementById('confirm-modal').style.display = 'flex';
                 pendingAction = () => { window.location.href = 'index.html'; };
             } else window.location.href = 'index.html';
@@ -292,6 +311,7 @@
         document.getElementById('btn-review-wrong').onclick = () => initGame('review');
         document.getElementById('btn-next').onclick = () => { currentIndex++; updateStatsUI(false); renderQuestion(); };
 
+        updateCompletionCountUI();
         showScreen('start');
     </script>
 </body>

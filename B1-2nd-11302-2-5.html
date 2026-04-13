@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>模卷單字預習＋複習 - B1-1st-11402-1-3</title>
+    <title>模卷單字預習＋複習 - B1-2nd-11302-2-5</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Quicksand:wght@500;700&display=swap');
@@ -121,17 +121,17 @@
                 </div>
                 <div class="flex justify-between items-center text-[9px] font-black text-slate-400 uppercase leading-none">
                     <span class="text-green-500">CORRECT: <span id="live-correct">0</span></span>
-                    <span><span id="current-idx">0</span> / <span id="total-idx">22</span></span>
+                    <span><span id="current-idx">0</span> / <span id="total-idx">20</span></span>
                     <span class="text-pink-500">WRONG: <span id="live-wrong">0</span></span>
                 </div>
                 <div class="text-right mt-1">
-                    <span class="text-slate-400 font-black" style="font-size: 10px;">B1-1st-11402-1-3</span>
+                    <span class="text-slate-400 font-black" style="font-size: 10px;">B1-2nd-11302-2-5</span>
                 </div>
             </div>
 
             <div id="screen-start" class="flex flex-col items-center py-6">
-                <h1 class="text-4xl font-black text-slate-600 mb-2">模卷單字預習＋複習</h1>
-                <p class="text-3xl font-black text-slate-400 mb-4">B1-1st-11402-1-3</p>
+                <h1 class="text-4xl font-black text-slate-600 mb-2 text-center">模卷單字預習＋複習</h1>
+                <p class="text-3xl font-black text-slate-400 mb-4">B1-2nd-11302-2-5</p>
                 <div class="flex gap-2.5 mb-2">
                     <div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div>
                 </div>
@@ -164,20 +164,19 @@
 
     <script type="module">
         const WORDS = [
-            {en: "paradox", ch: "(n.) 矛盾；似非而是的論點"}, {en: "triumphant", ch: "(adj.) 勝利的；得意洋洋的"}, {en: "sacrifice", ch: "(v./n.) 犧牲"},
-            {en: "destination", ch: "(n.) 目的地"}, {en: "represent", ch: "(v.) 代表"}, {en: "endure", ch: "(v.) 忍受；持久"},
-            {en: "property", ch: "(n.) 特性；財產"}, {en: "memorable", ch: "(adj.) 難忘的"}, {en: "inform", ch: "(v.) 通知；告知"},
-            {en: "promote", ch: "(v.) 促進；晉升"}, {en: "athlete", ch: "(n.) 運動員"}, {en: "wisdom", ch: "(n.) 智慧"},
-            {en: "numerous", ch: "(adj.) 許多的"}, {en: "especially", ch: "(adv.) 尤其"}, {en: "generous", ch: "(adj.) 慷慨的"},
-            {en: "selfish", ch: "(adj.) 自私的"}, {en: "violate", ch: "(v.) 違反"}, {en: "potential", ch: "(n./adj.) 潛力"},
-            {en: "impact", ch: "(n./v.) 衝擊；影響"}, {en: "accidentally", ch: "(adv.) 意外地"}, {en: "exist", ch: "(v.) 存在"},
-            {en: "pressure", ch: "(n.) 壓力"}
+            {en: "ambiguity", ch: "(n.) 模稜兩可"}, {en: "vulnerable", ch: "(adj.) 易受傷的"}, {en: "compassion", ch: "(n.) 憐憫"},
+            {en: "cherish", ch: "(v.) 珍愛"}, {en: "confront", ch: "(v.) 對抗"}, {en: "enhance", ch: "(v.) 提升"},
+            {en: "persistent", ch: "(adj.) 堅持的"}, {en: "architecture", ch: "(n.) 建築"}, {en: "pressure", ch: "(n.) 壓力"},
+            {en: "potential", ch: "(n./adj.) 潛力"}, {en: "significant", ch: "(adj.) 顯著的"}, {en: "isolation", ch: "(n.) 孤立"},
+            {en: "impact", ch: "(n.) 衝擊"}, {en: "furthermore", ch: "(adv.) 此外"}, {en: "aimless", ch: "(adj.) 漫無目的的"},
+            {en: "display", ch: "(n./v.) 顯示"}, {en: "annual", ch: "(adj.) 年度的"}, {en: "effective", ch: "(adj.) 有效的"},
+            {en: "survive", ch: "(v.) 存活"}, {en: "medical", ch: "(adj.) 醫療的"}
         ];
 
         let currentPool = [], currentIndex = 0, correctCount = 0, wrongCount = 0;
         let wrongWords = [], currentQuestion = {}, pendingAction = null;
         
-        const STORAGE_KEY = 'word_game_completion_count_B1_1st_11402_1_3';
+        const STORAGE_KEY = 'word_game_completion_count_B1_2nd_11302_2_5';
 
         function updateCompletionCountUI() {
             const count = localStorage.getItem(STORAGE_KEY) || 0;

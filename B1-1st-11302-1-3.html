@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>模卷單字預習＋複習</title>
+    <title>模卷單字預習＋複習 - B1-1st-11302-1-3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Quicksand:wght@500;700&display=swap');
@@ -48,31 +48,31 @@
             background: white; 
             border: 3px solid #F1F5F9; 
             color: #64748B; 
-            height: 72px; 
-            font-size: 1.35rem; 
+            min-height: 72px; 
+            height: auto;
             width: 100%; 
-            padding: 5px 40px 5px 15px;
-            line-height: 1.1;
+            padding: 8px 35px 8px 12px;
+            line-height: 1.2;
             text-align: center;
         }
         
         .opt-text {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+            display: block;
+            width: 100%;
+            word-break: break-all;
             overflow: hidden;
-            word-break: break-word;
+            font-size: clamp(0.85rem, 3.8vw, 1.35rem); 
         }
         
         .feedback-icon {
             position: absolute;
-            right: 8px;
-            width: 28px;
-            height: 28px;
+            right: 6px;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 900;
         }
 
@@ -84,37 +84,19 @@
         .progress-bar-fill { transition: width 0.4s ease; background: var(--primary-purple); }
 
         .overlay {
-            position: absolute; 
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4); 
-            display: none; 
-            align-items: center; 
-            justify-content: center; 
-            z-index: 100;
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 100;
         }
         .modal-content {
-            background: white; 
-            padding: 20px; 
-            border-radius: 2rem; 
-            width: 80%;
-            max-width: 350px;
-            text-align: center; 
-            border: 4px solid var(--soft-yellow);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: white; padding: 20px; border-radius: 2rem; width: 80%; max-width: 350px;
+            text-align: center; border: 4px solid var(--soft-yellow); box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
         .custom-heart {
-            width: 28px;
-            height: 28px;
-            background-color: var(--primary-pink);
+            width: 28px; height: 28px; background-color: var(--primary-pink);
             -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
             mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
-            -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-            mask-position: center;
-            -webkit-mask-size: contain;
-            mask-size: contain;
+            -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;
         }
     </style>
 </head>
@@ -139,7 +121,7 @@
                 </div>
                 <div class="flex justify-between items-center text-[9px] font-black text-slate-400 uppercase leading-none">
                     <span class="text-green-500">CORRECT: <span id="live-correct">0</span></span>
-                    <span><span id="current-idx">0</span> / <span id="total-idx">23</span></span>
+                    <span><span id="current-idx">0</span> / <span id="total-idx">20</span></span>
                     <span class="text-pink-500">WRONG: <span id="live-wrong">0</span></span>
                 </div>
                 <div class="text-right mt-1">
@@ -150,13 +132,11 @@
             <div id="screen-start" class="flex flex-col items-center py-6">
                 <h1 class="text-4xl font-black text-slate-600 mb-2">模卷單字預習＋複習</h1>
                 <p class="text-3xl font-black text-slate-400 mb-4">B1-1st-11302-1-3</p>
-                <div class="flex gap-2.5 mb-8">
-                    <div class="custom-heart"></div>
-                    <div class="custom-heart"></div>
-                    <div class="custom-heart"></div>
-                    <div class="custom-heart"></div>
-                    <div class="custom-heart"></div>
+                <div class="flex gap-2.5 mb-2">
+                    <div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div>
                 </div>
+                <p class="text-sm font-bold text-slate-400 mb-6">目前已有 <span id="completion-count" class="text-[--primary-pink] font-black">0</span> 人次完整玩過</p>
+                
                 <button id="btn-play" class="btn-base bg-[--primary-purple] text-white h-[75px] w-full text-2xl shadow-lg" style="border-radius: 2rem;">開始測驗</button>
             </div>
 
@@ -184,30 +164,37 @@
 
     <script type="module">
         const WORDS = [
-            {en: "polite", ch: "(adj.) 有禮貌的"}, {en: "roughly", ch: "(adv.) 大約"}, {en: "forever", ch: "(adv.) 永遠"},
-            {en: "hollow", ch: "(adj.) 中空的"}, {en: "energetic", ch: "(adj.) 精力充沛的"}, {en: "loyal", ch: "(adj.) 忠誠的"},
-            {en: "primary", ch: "(adj.) 主要的"}, {en: "award", ch: "(n.) 獎項"}, {en: "import", ch: "(n.) 進口"},
-            {en: "obvious", ch: "(adj.) 明顯的"}, {en: "reasonable", ch: "(adj.) 合理的"}, {en: "impressive", ch: "(adj.) 令人印象深刻的"},
-            {en: "influential", ch: "(adj.) 有影響力的"}, {en: "director", ch: "(n.) 導演"}, {en: "previous", ch: "(adj.) 先前的"},
-            {en: "terrific", ch: "(adj.) 極好的"}, {en: "accurate", ch: "(adj.) 精確的"}, {en: "intensive", ch: "(adj.) 強化的"},
-            {en: "ability", ch: "(n.) 能力"}, {en: "celebrity", ch: "(n.) 名人"}, {en: "autobiography", ch: "(n.) 自傳"},
-            {en: "eloquently", ch: "(adv.) 雄辯地"}, {en: "identity", ch: "(n.) 身分"}
+            {en: "paradox", ch: "(n.) 矛盾"}, {en: "heritage", ch: "(n.) 遺產；傳統"}, {en: "resilient", ch: "(adj.) 有韌性的"},
+            {en: "identify", ch: "(v.) 識別"}, {en: "observe", ch: "(v.) 觀察"}, {en: "benefit", ch: "(n.) 利益"},
+            {en: "propose", ch: "(v.) 提議"}, {en: "comparison", ch: "(n.) 比較"}, {en: "determine", ch: "(v.) 決定"},
+            {en: "prevent", ch: "(v.) 預防"}, {en: "reasonable", ch: "(adj.) 合理的"}, {en: "consequently", ch: "(adv.) 因此"},
+            {en: "definite", ch: "(adj.) 明確的"}, {en: "competitive", ch: "(adj.) 競爭的"}, {en: "circulation", ch: "(n.) 循環"},
+            {en: "destination", ch: "(n.) 目的地"}, {en: "frustration", ch: "(n.) 挫折"}, {en: "constant", ch: "(adj.) 持續的"},
+            {en: "professional", ch: "(adj.) 專業的"}, {en: "method", ch: "(n.) 方法"}
         ];
 
         let currentPool = [], currentIndex = 0, correctCount = 0, wrongCount = 0;
         let wrongWords = [], currentQuestion = {}, pendingAction = null;
+        
+        const STORAGE_KEY = 'word_game_completion_count_B1_1st_11302_1_3';
+
+        function updateCompletionCountUI() {
+            const count = localStorage.getItem(STORAGE_KEY) || 0;
+            const countEl = document.getElementById('completion-count');
+            if (countEl) countEl.innerText = count;
+        }
 
         function showScreen(name) {
             ['screen-start', 'screen-quiz', 'screen-result'].forEach(id => {
                 const el = document.getElementById(id);
-                el.classList.add('hidden');
-                el.classList.remove('flex');
+                el.classList.add('hidden'); el.classList.remove('flex');
             });
             const target = document.getElementById(`screen-${name}`);
-            target.classList.remove('hidden');
-            target.classList.add('flex');
+            target.classList.remove('hidden'); target.classList.add('flex');
             document.getElementById('game-info').classList.toggle('hidden', name !== 'quiz');
             document.getElementById('nav-restart').classList.toggle('hidden', name === 'start');
+            
+            if (name === 'start') updateCompletionCountUI();
         }
 
         function initGame(mode = 'all') {
@@ -216,9 +203,7 @@
             currentIndex = 0; correctCount = 0; wrongCount = 0;
             if(mode === 'all') wrongWords = [];
             document.getElementById('progress-bar').style.width = '0%';
-            updateStatsUI();
-            showScreen('quiz');
-            renderQuestion();
+            updateStatsUI(); showScreen('quiz'); renderQuestion();
         }
 
         function renderQuestion() {
@@ -231,9 +216,8 @@
             document.getElementById('btn-next').classList.add('invisible');
 
             let distractors = WORDS.filter(w => w.en !== data.en).sort(() => Math.random() - 0.5).slice(0, 3).map(w => isEnToCh ? w.ch : w.en);
-            let correctPos = currentIndex % 4; // 絕對平均分配位置 (0-3 循環)
-            let options = [];
-            let distractorIdx = 0;
+            let correctPos = Math.floor(Math.random() * 4);
+            let options = []; let distractorIdx = 0;
             for (let i = 0; i < 4; i++) {
                 if (i === correctPos) options.push(currentQuestion.a);
                 else { options.push(distractors[distractorIdx]); distractorIdx++; }
@@ -266,8 +250,7 @@
                             }
                         });
                     }
-                    updateStatsUI(true); 
-                    document.getElementById('btn-next').classList.remove('invisible');
+                    updateStatsUI(true); document.getElementById('btn-next').classList.remove('invisible');
                 };
                 grid.appendChild(btn);
             });
@@ -290,6 +273,13 @@
             document.getElementById('result-score').innerText = `正確 ${correctCount} · 錯誤 ${wrongCount}`;
             const rb = document.getElementById('btn-review-wrong');
             if (wrongWords.length > 0) rb.classList.remove('hidden'); else rb.classList.add('hidden');
+            
+            if (currentPool.length === WORDS.length) {
+                let currentCount = parseInt(localStorage.getItem(STORAGE_KEY) || 0);
+                currentCount++;
+                localStorage.setItem(STORAGE_KEY, currentCount);
+                updateCompletionCountUI();
+            }
         }
 
         document.getElementById('nav-restart').onclick = () => {
@@ -298,26 +288,21 @@
                 document.getElementById('modal-desc').innerText = "將回到封面，進度將被重置。";
                 document.getElementById('confirm-modal').style.display = 'flex';
                 pendingAction = () => showScreen('start');
-            } else {
-                showScreen('start');
-            }
+            } else showScreen('start');
         };
 
         document.getElementById('nav-home').onclick = () => {
             if (!document.getElementById('screen-quiz').classList.contains('hidden')) {
                 document.getElementById('modal-title').innerText = "回到主頁面？";
-                document.getElementById('modal-desc').innerText = "將離開遊戲，回到 index 頁面。";
+                document.getElementById('modal-desc').innerText = "將離開遊戲。";
                 document.getElementById('confirm-modal').style.display = 'flex';
                 pendingAction = () => { window.location.href = 'index.html'; };
-            } else {
-                window.location.href = 'index.html';
-            }
+            } else window.location.href = 'index.html';
         };
 
         document.getElementById('modal-no').onclick = () => document.getElementById('confirm-modal').style.display = 'none';
         document.getElementById('modal-yes').onclick = () => { 
-            document.getElementById('confirm-modal').style.display = 'none'; 
-            if(pendingAction) pendingAction(); 
+            document.getElementById('confirm-modal').style.display = 'none'; if(pendingAction) pendingAction(); 
         };
 
         document.getElementById('btn-play').onclick = () => initGame('all');
@@ -325,6 +310,7 @@
         document.getElementById('btn-review-wrong').onclick = () => initGame('review');
         document.getElementById('btn-next').onclick = () => { currentIndex++; updateStatsUI(false); renderQuestion(); };
 
+        updateCompletionCountUI();
         showScreen('start');
     </script>
 </body>

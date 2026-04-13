@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>模卷單字預習＋複習</title>
+    <title>模卷單字預習＋複習 - B1-1st-11402-1-1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Quicksand:wght@500;700&display=swap');
@@ -61,7 +61,7 @@
             width: 100%;
             word-break: break-all;
             overflow: hidden;
-            font-size: clamp(0.9rem, 4vw, 1.35rem); 
+            font-size: clamp(0.75rem, 3.4vw, 1.25rem); 
         }
         
         .feedback-icon {
@@ -132,9 +132,11 @@
             <div id="screen-start" class="flex flex-col items-center py-6">
                 <h1 class="text-4xl font-black text-slate-600 mb-2">模卷單字預習＋複習</h1>
                 <p class="text-3xl font-black text-slate-400 mb-4">B1-1st-11402-1-1</p>
-                <div class="flex gap-2.5 mb-8">
+                <div class="flex gap-2.5 mb-2">
                     <div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div>
                 </div>
+                <p class="text-sm font-bold text-slate-400 mb-6">目前已有 <span id="completion-count" class="text-[--primary-pink] font-black">0</span> 人次完整玩過</p>
+                
                 <button id="btn-play" class="btn-base bg-[--primary-purple] text-white h-[75px] w-full text-2xl shadow-lg" style="border-radius: 2rem;">開始測驗</button>
             </div>
 
@@ -162,18 +164,26 @@
 
     <script type="module">
         const WORDS = [
-            {en: "Immortality", ch: "(n.) 永生；不朽"}, {en: "Sophisticated", ch: "(adj.) 精密的；世故的"}, {en: "Empathy", ch: "(n.) 同理心"},
-            {en: "Compassion", ch: "(n.) 憐憫；同情"}, {en: "Cultivate", ch: "(v.) 培養"}, {en: "Relieve", ch: "(v.) 減輕；緩和"},
-            {en: "Mystery", ch: "(n.) 謎；神秘的事物"}, {en: "Touching", ch: "(adj.) 感人的"}, {en: "Compete", ch: "(v.) 競爭"},
-            {en: "Respond", ch: "(v.) 回應"}, {en: "Evidence", ch: "(n.) 證據"}, {en: "Worth", ch: "(n.) 價值"},
-            {en: "Brief", ch: "(adj.) 簡短的"}, {en: "Immediately", ch: "(adv.) 立即地"}, {en: "Blame", ch: "(v./n.) 責備"},
-            {en: "Deny", ch: "(v.) 否認"}, {en: "Goal", ch: "(n.) 目標"}, {en: "Spirit", ch: "(n.) 精神；靈魂"},
-            {en: "Task", ch: "(n.) 任務；工作"}, {en: "Accurate", ch: "(adj.) 準確的"}, {en: "Significant", ch: "(adj.) 顯著的；重要的"},
-            {en: "Suffer", ch: "(v.) 受苦"}
+            {en: "immortality", ch: "(n.) 永生；不朽"}, {en: "sophisticated", ch: "(adj.) 精密的；世故的"}, {en: "empathy", ch: "(n.) 同理心"},
+            {en: "compassion", ch: "(n.) 憐憫；同情"}, {en: "cultivate", ch: "(v.) 培養"}, {en: "relieve", ch: "(v.) 減輕；緩和"},
+            {en: "mystery", ch: "(n.) 謎；神秘的事物"}, {en: "touching", ch: "(adj.) 感人的"}, {en: "compete", ch: "(v.) 競爭"},
+            {en: "respond", ch: "(v.) 回應"}, {en: "evidence", ch: "(n.) 證據"}, {en: "worth", ch: "(n.) 價值"},
+            {en: "brief", ch: "(adj.) 簡短的"}, {en: "immediately", ch: "(adv.) 立即地"}, {en: "blame", ch: "(v./n.) 責備"},
+            {en: "deny", ch: "(v.) 否認"}, {en: "goal", ch: "(n.) 目標"}, {en: "spirit", ch: "(n.) 精神；靈魂"},
+            {en: "task", ch: "(n.) 任務；工作"}, {en: "accurate", ch: "(adj.) 準確的"}, {en: "significant", ch: "(adj.) 顯著的"},
+            {en: "suffer", ch: "(v.) 受苦"}
         ];
 
         let currentPool = [], currentIndex = 0, correctCount = 0, wrongCount = 0;
         let wrongWords = [], currentQuestion = {}, pendingAction = null;
+        
+        const STORAGE_KEY = 'word_game_completion_count_B1_1st_11402_1_1';
+
+        function updateCompletionCountUI() {
+            const count = localStorage.getItem(STORAGE_KEY) || 0;
+            const countEl = document.getElementById('completion-count');
+            if (countEl) countEl.innerText = count;
+        }
 
         function showScreen(name) {
             ['screen-start', 'screen-quiz', 'screen-result'].forEach(id => {
@@ -184,6 +194,8 @@
             target.classList.remove('hidden'); target.classList.add('flex');
             document.getElementById('game-info').classList.toggle('hidden', name !== 'quiz');
             document.getElementById('nav-restart').classList.toggle('hidden', name === 'start');
+            
+            if (name === 'start') updateCompletionCountUI();
         }
 
         function initGame(mode = 'all') {
@@ -205,7 +217,7 @@
             document.getElementById('btn-next').classList.add('invisible');
 
             let distractors = WORDS.filter(w => w.en !== data.en).sort(() => Math.random() - 0.5).slice(0, 3).map(w => isEnToCh ? w.ch : w.en);
-            let correctPos = currentIndex % 4; // 絕對平均分配位置
+            let correctPos = Math.floor(Math.random() * 4);
             let options = []; let distractorIdx = 0;
             for (let i = 0; i < 4; i++) {
                 if (i === correctPos) options.push(currentQuestion.a);
@@ -262,12 +274,19 @@
             document.getElementById('result-score').innerText = `正確 ${correctCount} · 錯誤 ${wrongCount}`;
             const rb = document.getElementById('btn-review-wrong');
             if (wrongWords.length > 0) rb.classList.remove('hidden'); else rb.classList.add('hidden');
+            
+            if (currentPool.length === WORDS.length) {
+                let currentCount = parseInt(localStorage.getItem(STORAGE_KEY) || 0);
+                currentCount++;
+                localStorage.setItem(STORAGE_KEY, currentCount);
+                updateCompletionCountUI();
+            }
         }
 
         document.getElementById('nav-restart').onclick = () => {
             if (!document.getElementById('screen-quiz').classList.contains('hidden')) {
                 document.getElementById('modal-title').innerText = "重新開始遊戲？";
-                document.getElementById('modal-desc').innerText = "將回到封面，進度將被重置。";
+                document.getElementById('modal-desc').innerText = "將回到封面。";
                 document.getElementById('confirm-modal').style.display = 'flex';
                 pendingAction = () => showScreen('start');
             } else showScreen('start');
@@ -276,7 +295,7 @@
         document.getElementById('nav-home').onclick = () => {
             if (!document.getElementById('screen-quiz').classList.contains('hidden')) {
                 document.getElementById('modal-title').innerText = "回到主頁面？";
-                document.getElementById('modal-desc').innerText = "將離開遊戲，回到 index 頁面。";
+                document.getElementById('modal-desc').innerText = "將離開測驗。";
                 document.getElementById('confirm-modal').style.display = 'flex';
                 pendingAction = () => { window.location.href = 'index.html'; };
             } else window.location.href = 'index.html';
@@ -292,6 +311,7 @@
         document.getElementById('btn-review-wrong').onclick = () => initGame('review');
         document.getElementById('btn-next').onclick = () => { currentIndex++; updateStatsUI(false); renderQuestion(); };
 
+        updateCompletionCountUI();
         showScreen('start');
     </script>
 </body>

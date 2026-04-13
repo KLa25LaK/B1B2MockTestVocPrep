@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>模卷單字預習＋複習</title>
+    <title>模卷單字預習＋複習 - 核心單字篇</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Quicksand:wght@500;700&display=swap');
@@ -48,31 +48,31 @@
             background: white; 
             border: 3px solid #F1F5F9; 
             color: #64748B; 
-            height: 72px; 
-            font-size: 1.35rem; 
+            min-height: 72px; 
+            height: auto;
             width: 100%; 
-            padding: 5px 40px 5px 15px;
-            line-height: 1.1;
+            padding: 8px 35px 8px 12px;
+            line-height: 1.2;
             text-align: center;
         }
         
         .opt-text {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+            display: block;
+            width: 100%;
+            word-break: break-all;
             overflow: hidden;
-            word-break: break-word;
+            font-size: clamp(0.85rem, 3.8vw, 1.35rem); 
         }
         
         .feedback-icon {
             position: absolute;
-            right: 8px;
-            width: 28px;
-            height: 28px;
+            right: 6px;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 900;
         }
 
@@ -84,37 +84,19 @@
         .progress-bar-fill { transition: width 0.4s ease; background: var(--primary-purple); }
 
         .overlay {
-            position: absolute; 
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4); 
-            display: none; 
-            align-items: center; 
-            justify-content: center; 
-            z-index: 100;
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 100;
         }
         .modal-content {
-            background: white; 
-            padding: 20px; 
-            border-radius: 2rem; 
-            width: 80%;
-            max-width: 350px;
-            text-align: center; 
-            border: 4px solid var(--soft-yellow);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: white; padding: 20px; border-radius: 2rem; width: 80%; max-width: 350px;
+            text-align: center; border: 4px solid var(--soft-yellow); box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
         .custom-heart {
-            width: 28px;
-            height: 28px;
-            background-color: var(--primary-pink);
+            width: 28px; height: 28px; background-color: var(--primary-pink);
             -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
             mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
-            -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-            mask-position: center;
-            -webkit-mask-size: contain;
-            mask-size: contain;
+            -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;
         }
     </style>
 </head>
@@ -139,30 +121,28 @@
                 </div>
                 <div class="flex justify-between items-center text-[9px] font-black text-slate-400 uppercase leading-none">
                     <span class="text-green-500">CORRECT: <span id="live-correct">0</span></span>
-                    <span><span id="current-idx">0</span> / <span id="total-idx">23</span></span>
+                    <span><span id="current-idx">0</span> / <span id="total-idx">20</span></span>
                     <span class="text-pink-500">WRONG: <span id="live-wrong">0</span></span>
                 </div>
                 <div class="text-right mt-1">
-                    <span class="text-slate-400 font-black" style="font-size: 10px;">B1-1st-11302-1-2</span>
+                    <span class="text-slate-400 font-black" style="font-size: 10px;">CORE-VOCAB-001</span>
                 </div>
             </div>
 
             <div id="screen-start" class="flex flex-col items-center py-6">
-                <h1 class="text-4xl font-black text-slate-600 mb-2">模卷單字預習＋複習</h1>
-                <p class="text-3xl font-black text-slate-400 mb-4">B1-1st-11302-1-2</p>
-                <div class="flex gap-2.5 mb-8">
-                    <div class="custom-heart"></div>
-                    <div class="custom-heart"></div>
-                    <div class="custom-heart"></div>
-                    <div class="custom-heart"></div>
-                    <div class="custom-heart"></div>
+                <h1 class="text-4xl font-black text-slate-600 mb-2 text-center">模卷單字預習＋複習</h1>
+                <p class="text-3xl font-black text-slate-400 mb-4">核心單字篇</p>
+                <div class="flex gap-2.5 mb-2">
+                    <div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div>
                 </div>
+                <p class="text-sm font-bold text-slate-400 mb-6">目前已有 <span id="completion-count" class="text-[--primary-pink] font-black">0</span> 人次完整玩過</p>
+                
                 <button id="btn-play" class="btn-base bg-[--primary-purple] text-white h-[75px] w-full text-2xl shadow-lg" style="border-radius: 2rem;">開始測驗</button>
             </div>
 
             <div id="screen-quiz" class="hidden flex-col items-center">
                 <p id="quiz-mode" class="text-[9px] font-black text-slate-300 tracking-widest uppercase mb-1 mt-1"></p>
-                <h2 id="quiz-question" class="text-4xl font-black text-slate-700 leading-none mb-4 text-center"></h2>
+                <h2 id="quiz-question" class="text-4xl font-black text-slate-700 leading-none mb-4 text-center min-h-[1.2em]"></h2>
                 <div id="options-grid" class="grid grid-cols-2 gap-1.5 w-full"></div>
                 <button id="btn-next" class="invisible mt-3 btn-base bg-[--primary-purple] text-white w-full" style="height: 52px; font-size: 1.4rem; border-radius: 1.25rem;">下一題 ➔</button>
             </div>
@@ -183,31 +163,42 @@
     </div>
 
     <script type="module">
+        // 替換後的單字表
         const WORDS = [
-            {en: "library", ch: "(n.) 圖書館"}, {en: "lockdown", ch: "(n.) 封鎖"}, {en: "audience", ch: "(n.) 觀眾"},
-            {en: "experience", ch: "(n.) 經驗"}, {en: "atmosphere", ch: "(n.) 氣氛"}, {en: "reunion", ch: "(n.) 團聚"},
-            {en: "mix", ch: "(v.) 混合"}, {en: "mend", ch: "(v.) 修理"}, {en: "match", ch: "(v.) 相配"},
-            {en: "behave", ch: "(v.) 舉止"}, {en: "propose", ch: "(v.) 提議"}, {en: "schedule", ch: "(v.) 排定"},
-            {en: "skip", ch: "(v.) 略過"}, {en: "decide", ch: "(v.) 決定"}, {en: "rely", ch: "(v.) 依靠"},
-            {en: "discover", ch: "(v.) 發現"}, {en: "recognize", ch: "(v.) 認出"}, {en: "disclose", ch: "(v.) 揭露"},
-            {en: "satisfy", ch: "(v.) 滿意"}, {en: "train", ch: "(v.) 訓練"}, {en: "communicate", ch: "(v.) 溝通"},
-            {en: "connect", ch: "(v.) 連接"}, {en: "famous", ch: "(adj.) 著名的"}
+            {en: "ambitious", ch: "(adj.) 有野心的"}, {en: "broadcast", ch: "(v./n.) 廣播；播送"}, {en: "candidate", ch: "(n.) 候選人"},
+            {en: "destination", ch: "(n.) 目的地"}, {en: "enthusiasm", ch: "(n.) 熱情"}, {en: "foundation", ch: "(n.) 基礎；基金會"},
+            {en: "guarantee", ch: "(v./n.) 保證"}, {en: "hesitate", ch: "(v.) 猶豫"}, {en: "identical", ch: "(adj.) 完全相同的"},
+            {en: "jealous", ch: "(adj.) 嫉妒的"}, {en: "knowledgeable", ch: "(adj.) 博學的"}, {en: "landscape", ch: "(n.) 風景"},
+            {en: "motivation", ch: "(n.) 動機"}, {en: "obstacle", ch: "(n.) 障礙"}, {en: "pessimistic", ch: "(adj.) 悲觀的"},
+            {en: "qualification", ch: "(n.) 資格"}, {en: "reasonable", ch: "(adj.) 合理的"}, {en: "spiritual", ch: "(adj.) 性靈的"},
+            {en: "tendency", ch: "(n.) 傾向"}, {en: "ultimate", ch: "(adj.) 最終的"}
         ];
 
         let currentPool = [], currentIndex = 0, correctCount = 0, wrongCount = 0;
         let wrongWords = [], currentQuestion = {}, pendingAction = null;
+        
+        // 獨立的儲存金鑰
+        const STORAGE_KEY = 'word_game_completion_count_CORE_VOCAB_001';
+
+        function updateCompletionCountUI() {
+            const count = localStorage.getItem(STORAGE_KEY) || 0;
+            const countEl = document.getElementById('completion-count');
+            if (countEl) countEl.innerText = count;
+        }
 
         function showScreen(name) {
             ['screen-start', 'screen-quiz', 'screen-result'].forEach(id => {
                 const el = document.getElementById(id);
-                el.classList.add('hidden');
-                el.classList.remove('flex');
+                el.classList.add('hidden'); el.classList.remove('flex');
             });
             const target = document.getElementById(`screen-${name}`);
-            target.classList.remove('hidden');
-            target.classList.add('flex');
+            target.classList.remove('hidden'); target.classList.add('flex');
             document.getElementById('game-info').classList.toggle('hidden', name !== 'quiz');
             document.getElementById('nav-restart').classList.toggle('hidden', name === 'start');
+            
+            if (name === 'start') {
+                updateCompletionCountUI();
+            }
         }
 
         function initGame(mode = 'all') {
@@ -216,9 +207,7 @@
             currentIndex = 0; correctCount = 0; wrongCount = 0;
             if(mode === 'all') wrongWords = [];
             document.getElementById('progress-bar').style.width = '0%';
-            updateStatsUI();
-            showScreen('quiz');
-            renderQuestion();
+            updateStatsUI(); showScreen('quiz'); renderQuestion();
         }
 
         function renderQuestion() {
@@ -231,9 +220,8 @@
             document.getElementById('btn-next').classList.add('invisible');
 
             let distractors = WORDS.filter(w => w.en !== data.en).sort(() => Math.random() - 0.5).slice(0, 3).map(w => isEnToCh ? w.ch : w.en);
-            let correctPos = currentIndex % 4; // 絕對平均分配位置
-            let options = [];
-            let distractorIdx = 0;
+            let correctPos = Math.floor(Math.random() * 4);
+            let options = []; let distractorIdx = 0;
             for (let i = 0; i < 4; i++) {
                 if (i === correctPos) options.push(currentQuestion.a);
                 else { options.push(distractors[distractorIdx]); distractorIdx++; }
@@ -266,8 +254,7 @@
                             }
                         });
                     }
-                    updateStatsUI(true); 
-                    document.getElementById('btn-next').classList.remove('invisible');
+                    updateStatsUI(true); document.getElementById('btn-next').classList.remove('invisible');
                 };
                 grid.appendChild(btn);
             });
@@ -290,6 +277,13 @@
             document.getElementById('result-score').innerText = `正確 ${correctCount} · 錯誤 ${wrongCount}`;
             const rb = document.getElementById('btn-review-wrong');
             if (wrongWords.length > 0) rb.classList.remove('hidden'); else rb.classList.add('hidden');
+            
+            if (currentPool.length === WORDS.length) {
+                let currentCount = parseInt(localStorage.getItem(STORAGE_KEY) || 0);
+                currentCount++;
+                localStorage.setItem(STORAGE_KEY, currentCount);
+                updateCompletionCountUI();
+            }
         }
 
         document.getElementById('nav-restart').onclick = () => {
@@ -298,26 +292,21 @@
                 document.getElementById('modal-desc').innerText = "將回到封面，進度將被重置。";
                 document.getElementById('confirm-modal').style.display = 'flex';
                 pendingAction = () => showScreen('start');
-            } else {
-                showScreen('start');
-            }
+            } else showScreen('start');
         };
 
         document.getElementById('nav-home').onclick = () => {
             if (!document.getElementById('screen-quiz').classList.contains('hidden')) {
                 document.getElementById('modal-title').innerText = "回到主頁面？";
-                document.getElementById('modal-desc').innerText = "將離開遊戲，回到 index 頁面。";
+                document.getElementById('modal-desc').innerText = "將離開遊戲。";
                 document.getElementById('confirm-modal').style.display = 'flex';
                 pendingAction = () => { window.location.href = 'index.html'; };
-            } else {
-                window.location.href = 'index.html';
-            }
+            } else window.location.href = 'index.html';
         };
 
         document.getElementById('modal-no').onclick = () => document.getElementById('confirm-modal').style.display = 'none';
         document.getElementById('modal-yes').onclick = () => { 
-            document.getElementById('confirm-modal').style.display = 'none'; 
-            if(pendingAction) pendingAction(); 
+            document.getElementById('confirm-modal').style.display = 'none'; if(pendingAction) pendingAction(); 
         };
 
         document.getElementById('btn-play').onclick = () => initGame('all');
@@ -325,6 +314,7 @@
         document.getElementById('btn-review-wrong').onclick = () => initGame('review');
         document.getElementById('btn-next').onclick = () => { currentIndex++; updateStatsUI(false); renderQuestion(); };
 
+        updateCompletionCountUI();
         showScreen('start');
     </script>
 </body>
