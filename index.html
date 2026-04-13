@@ -5,348 +5,187 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>B1 B2 Mock Test Vocabulary Preparation</title>
 <style>
-    /* --- 核心粉嫩風格定義 --- */
     :root {
-        --kitty-pink-dark: #FFB6C1; /* 櫻花粉 */
-        --kitty-pink-light: #FFF0F5; /* 薰衣草紫紅 (背景) */
+        --kitty-pink-dark: #FFB6C1;
+        --kitty-pink-light: #FFF0F5;
         --kitty-white: #FFFFFF;
-        --kitty-text: #8B4513; /* 深皮革棕，比黑色更柔和 */
-        --kitty-accent: #FF69B4; /* 熱情粉，用於重點標示 */
-        --kitty-success: #C1FFC1; /* 淺綠，用於下載成功提示 */
+        --kitty-text: #8B4513;
+        --kitty-accent: #FF69B4;
     }
 
     body {
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         background-color: var(--kitty-pink-light);
         color: var(--kitty-text);
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
+        margin: 0; padding: 0;
+        display: flex; justify-content: center;
     }
 
-    /* --- 頁面主體容器 --- */
     .main-container {
-        width: 90%;
-        max-width: 1000px;
+        width: 95%; max-width: 1100px;
         background-color: var(--kitty-white);
-        margin: 40px 0;
-        border-radius: 30px; /* 超圓潤邊角 */
-        box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3); /* 粉色陰影 */
-        overflow: hidden; /* 確保內容不超出圓角 */
+        margin: 40px 0; border-radius: 30px;
+        box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
         border: 4px solid var(--kitty-pink-dark);
+        overflow: hidden;
     }
 
-    /* --- 標題區域 (Header) --- */
     header {
         background-color: var(--kitty-pink-dark);
         color: var(--kitty-white);
-        padding: 30px;
-        text-align: center;
+        padding: 30px; text-align: center;
         border-bottom: 4px solid var(--kitty-accent);
-        position: relative;
     }
 
-    /* 模擬 Hello Kitty 的蝴蝶結裝飾 */
-    header::before {
-        content: '🎀'; /* 蝴蝶結 Emoji */
-        font-size: 3rem;
-        position: absolute;
-        top: -20px;
-        left: 20px;
-        filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
-    }
+    header h1 { margin: 0; font-size: 2rem; text-shadow: 2px 2px 0 var(--kitty-accent); }
 
-    header h1 {
-        margin: 0;
-        font-size: 2.5rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        text-shadow: 2px 2px 0 var(--kitty-accent);
-    }
-
-    header p {
-        margin: 10px 0 0;
-        font-size: 1.1rem;
-        opacity: 0.9;
-    }
-
-    /* --- 檔案導覽區域 (Navigation) --- */
     nav {
         background-color: var(--kitty-white);
-        padding: 20px;
-        border-bottom: 2px solid var(--kitty-pink-light);
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        flex-wrap: wrap;
+        padding: 15px; border-bottom: 2px solid var(--kitty-pink-light);
+        display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+        position: sticky; top: 0; z-index: 100;
     }
 
     .nav-button {
-        background-color: var(--kitty-white);
-        color: var(--kitty-text);
-        border: 2px solid var(--kitty-pink-dark);
-        padding: 10px 20px;
-        border-radius: 20px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        cursor: pointer;
+        background-color: var(--kitty-white); color: var(--kitty-text);
+        border: 2px solid var(--kitty-pink-dark); padding: 8px 15px;
+        border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.9rem;
     }
 
-    .nav-button:hover {
-        background-color: var(--kitty-pink-dark);
-        color: var(--kitty-white);
-        transform: translateY(-2px);
-    }
+    .nav-button:hover { background-color: var(--kitty-pink-dark); color: var(--kitty-white); }
 
-    .nav-button.active {
-        background-color: var(--kitty-accent);
-        color: var(--kitty-white);
-        border-color: var(--kitty-accent);
-    }
-
-    /* --- 檔案列表區域 (Content) --- */
-    .content {
-        padding: 30px;
-    }
+    .content { padding: 20px; }
 
     .section-title {
-        font-size: 1.8rem;
-        color: var(--kitty-accent);
-        margin-bottom: 20px;
+        font-size: 1.5rem; color: var(--kitty-accent);
         border-bottom: 3px dashed var(--kitty-pink-dark);
-        padding-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        margin: 30px 0 15px; padding-bottom: 5px;
     }
 
     .file-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 20px;
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px;
     }
 
-    /* --- 檔案卡片樣式 --- */
     .file-item {
-        background-color: var(--kitty-white);
-        border: 2px solid var(--kitty-pink-light);
-        border-radius: 15px;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        text-decoration: none;
-        color: var(--kitty-text);
-        transition: all 0.2s ease;
-        position: relative;
+        background-color: var(--kitty-white); border: 2px solid var(--kitty-pink-light);
+        border-radius: 15px; padding: 15px; display: flex; align-items: center;
+        gap: 12px; text-decoration: none; color: var(--kitty-text); transition: 0.2s;
     }
 
-    .file-item:hover {
-        border-color: var(--kitty-accent);
-        background-color: #FFF5F7;
-        transform: scale(1.02);
-        box-shadow: 0 5px 15px rgba(255, 105, 180, 0.1);
-    }
+    .file-item:hover { border-color: var(--kitty-accent); background-color: #FFF5F7; transform: translateY(-3px); }
 
-    /* 檔案圖示 (模擬照片中的 HTML/空白圖示) */
     .file-icon {
-        width: 40px;
-        height: 40px;
-        background-color: var(--kitty-pink-light);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        color: var(--kitty-accent);
-        font-size: 0.8rem;
+        width: 35px; height: 35px; background-color: #E6E6FA;
+        border-radius: 8px; display: flex; align-items: center; justify-content: center;
+        font-size: 0.7rem; color: #6A5ACD; font-weight: bold;
     }
 
-    .file-icon.html {
-        background-color: #E6E6FA; /* 淺紫藍，用於 HTML 檔案 */
-        color: #6A5ACD;
-    }
+    .file-name { font-weight: bold; font-size: 0.95rem; word-break: break-all; }
 
-    .file-icon.html::before {
-        content: '</>';
-    }
-
-    .file-icon.blank {
-        background-color: #F0F0F0; /* 淺灰，用於空白檔案 */
-        color: #A9A9A9;
-    }
-    .file-icon.blank::before {
-        content: '?';
-    }
-
-
-    /* 檔案資訊 */
-    .file-info {
-        flex-grow: 1;
-    }
-
-    .file-name {
-        font-weight: bold;
-        font-size: 1.1rem;
-        display: block;
-        margin-bottom: 4px;
-    }
-
-    .file-meta {
-        font-size: 0.8rem;
-        color: #A9A9A9;
-    }
-
-    /* 下載圖示 (模擬照片中的 iCloud 下載圖示) */
-    .download-icon {
-        color: var(--kitty-pink-dark);
-        font-size: 1.2rem;
-    }
-
-    .file-item:hover .download-icon {
-        color: var(--kitty-accent);
-    }
-
-    /* --- 頁尾 --- */
-    footer {
-        background-color: var(--kitty-pink-light);
-        color: var(--kitty-text);
-        text-align: center;
-        padding: 20px;
-        font-size: 0.9rem;
-        border-top: 2px solid var(--kitty-pink-dark);
-    }
-
-    /* --- 響應式調整 --- */
-    @media (max-width: 600px) {
-        header h1 {
-            font-size: 1.8rem;
-        }
-        .file-list {
-            grid-template-columns: 1fr;
-        }
-    }
+    footer { text-align: center; padding: 20px; font-size: 0.8rem; border-top: 1px solid var(--kitty-pink-light); }
 </style>
 </head>
 <body>
 
 <div class="main-container">
     <header>
-        <h1>B1 B2 Mock Test Vocabulary Preparation</h1>
-        <p>Your Sweet Journey to Language Mastery 🌸</p>
+        <h1>B1 B2 Mock Test Vocabulary 🎀</h1>
     </header>
 
     <nav>
-        <a href="#b1-1st" class="nav-button active">B1 - 1st Review</a>
-        <a href="#b1-2nd" class="nav-button">B1 - 2nd Review</a>
-        <a href="#b1-full" class="nav-button">B1 - Full Mocks</a>
-        <a href="#b2-1st" class="nav-button">B2 - 1st Review</a>
-        <a href="#b2-2nd" class="nav-button">B2 - 2nd Review</a>
-        <a href="#b2-full" class="nav-button">B2 - Full Mocks</a>
+        <a href="#b1-1st" class="nav-button">B1-1st</a>
+        <a href="#b1-2nd" class="nav-button">B1-2nd</a>
+        <a href="#b1-full" class="nav-button">B1-Full</a>
+        <a href="#b2-1st" class="nav-button">B2-1st</a>
+        <a href="#b2-2nd" class="nav-button">B2-2nd</a>
+        <a href="#b2-full" class="nav-button">B2-Full</a>
     </nav>
 
     <div class="content">
-
-        <div id="b1-1st">
-            <h2 class="section-title">✨ B1 Level - 1st Review 🐾</h2>
-            <div class="file-list">
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-1st-11302-1-1</span><span class="file-meta">12:58 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-1st-11302-1-2</span><span class="file-meta">12:59 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-1st-11302-1-3</span><span class="file-meta">13:01 - 20 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-1st-11402-1-1</span><span class="file-meta">昨天 - 22 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon html"></div><div class="file-info"><span class="file-name">B1-1st-11402-1-2</span><span class="file-meta">12:42 - 20 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-1st-11402-1-3</span><span class="file-meta">00:02 - 18 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-1st-11402-1-4</span><span class="file-meta">11:31 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon html"></div><div class="file-info"><span class="file-name">B1-1st-11402-1-5</span><span class="file-meta">11:33 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-1st-11502-1-1</span><span class="file-meta">13:07 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon html"></div><div class="file-info"><span class="file-name">B1-1st-11502-1-2</span><span class="file-meta">13:20 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon html"></div><div class="file-info"><span class="file-name">B1-1st-11502-1-3</span><span class="file-meta">13:22 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-            </div>
+        <h2 id="b1-1st" class="section-title">✨ B1 Level - 1st Review 🐾</h2>
+        <div class="file-list">
+            <a href="B1-1st-11302-1-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-1st-11302-1-1</span></a>
+            <a href="B1-1st-11302-1-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-1st-11302-1-2</span></a>
+            <a href="B1-1st-11302-1-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-1st-11302-1-3</span></a>
+            <a href="B1-1st-11402-1-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-1st-11402-1-1</span></a>
+            <a href="B1-1st-11402-1-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-1st-11402-1-2</span></a>
+            <a href="B1-1st-11402-1-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-1st-11402-1-3</span></a>
+            <a href="B1-1st-11402-1-4.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-1st-11402-1-4</span></a>
+            <a href="B1-1st-11402-1-5.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-1st-11402-1-5</span></a>
+            <a href="B1-1st-11502-1-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-1st-11502-1-1</span></a>
+            <a href="B1-1st-11502-1-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-1st-11502-1-2</span></a>
+            <a href="B1-1st-11502-1-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-1st-11502-1-3</span></a>
         </div>
 
-        <div style="height: 40px;"></div> <div id="b1-2nd">
-            <h2 class="section-title">🍓 B1 Level - 2nd Review 🥛</h2>
-            <div class="file-list">
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-2nd-11302-2-1</span><span class="file-meta">13:27 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-2nd-11302-2-2</span><span class="file-meta">13:29 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-2nd-11302-2-3</span><span class="file-meta">13:30 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-2nd-11402-2-1</span><span class="file-meta">13:34 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-2nd-11402-2-2</span><span class="file-meta">13:36 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-2nd-11402-2-3</span><span class="file-meta">13:44 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-2nd-11502-2-1</span><span class="file-meta">13:51 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-2nd-11502-2-2</span><span class="file-meta">13:53 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-2nd-11502-2-3</span><span class="file-meta">14:04 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-            </div>
+        <h2 id="b1-2nd" class="section-title">🍓 B1 Level - 2nd Review 🥛</h2>
+        <div class="file-list">
+            <a href="B1-2nd-11302-2-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-2nd-11302-2-1</span></a>
+            <a href="B1-2nd-11302-2-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-2nd-11302-2-2</span></a>
+            <a href="B1-2nd-11302-2-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-2nd-11302-2-3</span></a>
+            <a href="B1-2nd-11402-2-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-2nd-11402-2-1</span></a>
+            <a href="B1-2nd-11402-2-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-2nd-11402-2-2</span></a>
+            <a href="B1-2nd-11402-2-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-2nd-11402-2-3</span></a>
+            <a href="B1-2nd-11502-2-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-2nd-11502-2-1</span></a>
+            <a href="B1-2nd-11502-2-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-2nd-11502-2-2</span></a>
+            <a href="B1-2nd-11502-2-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-2nd-11502-2-3</span></a>
         </div>
 
-        <div style="height: 40px;"></div>
-
-        <div id="b1-full">
-            <h2 class="section-title">🏆 B1 Level - Full Mocks 🎉</h2>
-            <div class="file-list">
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-Full-11307-1-1</span><span class="file-meta">14:16 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon html"></div><div class="file-info"><span class="file-name">B1-Full-11307-1-2</span><span class="file-meta">14:21 - 20 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-Full-11307-1-3</span><span class="file-meta">14:24 - 20 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-Full-11307-1-4</span><span class="file-meta">14:25 - 20 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-Full-11407-1-1</span><span class="file-meta">14:31 - 20 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-Full-11407-1-2</span><span class="file-meta">14:32 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B1-Full-11407-1-3</span><span class="file-meta">14:46 - 20 KB</span></div><span class="download-icon">☁️</span></a>
-            </div>
+        <h2 id="b1-full" class="section-title">🏆 B1 Level - Full Mocks 🎉</h2>
+        <div class="file-list">
+            <a href="B1-Full-11307-1-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-Full-11307-1-1</span></a>
+            <a href="B1-Full-11307-1-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-Full-11307-1-2</span></a>
+            <a href="B1-Full-11307-1-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-Full-11307-1-3</span></a>
+            <a href="B1-Full-11307-1-4.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-Full-11307-1-4</span></a>
+            <a href="B1-Full-11407-1-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-Full-11407-1-1</span></a>
+            <a href="B1-Full-11407-1-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-Full-11407-1-2</span></a>
+            <a href="B1-Full-11407-1-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B1-Full-11407-1-3</span></a>
         </div>
 
-        <div style="height: 60px; border-bottom: 5px solid var(--kitty-accent); margin-bottom: 40px;"></div> <div id="b2-1st">
-            <h2 class="section-title">💖 B2 Level - 1st Review ⭐</h2>
-            <div class="file-list">
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-1st-11303-1-1</span><span class="file-meta">14:58 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-1st-11303-1-2</span><span class="file-meta">15:15 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-1st-11303-1-3</span><span class="file-meta">15:01 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-1st-11403-1-1</span><span class="file-meta">15:16 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-1st-11403-1-2</span><span class="file-meta">15:16 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-1st-11403-1-3</span><span class="file-meta">15:18 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-            </div>
+        <h2 id="b2-1st" class="section-title">💖 B2 Level - 1st Review ⭐</h2>
+        <div class="file-list">
+            <a href="B2-1st-11303-1-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-1st-11303-1-1</span></a>
+            <a href="B2-1st-11303-1-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-1st-11303-1-2</span></a>
+            <a href="B2-1st-11303-1-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-1st-11303-1-3</span></a>
+            <a href="B2-1st-11403-1-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-1st-11403-1-1</span></a>
+            <a href="B2-1st-11403-1-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-1st-11403-1-2</span></a>
+            <a href="B2-1st-11403-1-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-1st-11403-1-3</span></a>
+            <a href="B2-1st-11503-1-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-1st-11503-1-1</span></a>
+            <a href="B2-1st-11503-1-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-1st-11503-1-2</span></a>
+            <a href="B2-1st-11503-1-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-1st-11503-1-3</span></a>
         </div>
 
-        <div style="height: 40px;"></div>
-
-        <div id="b2-2nd">
-            <h2 class="section-title">🍡 B2 Level - 2nd Review 🍭</h2>
-            <div class="file-list">
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-2nd-11303-2-1</span><span class="file-meta">17:45 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-2nd-11303-2-2</span><span class="file-meta">17:48 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-2nd-11303-2-3</span><span class="file-meta">17:49 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-2nd-11303-2-4</span><span class="file-meta">17:55 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-2nd-11403-2-1</span><span class="file-meta">17:58 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-2nd-11403-2-2</span><span class="file-meta">18:05 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-2nd-11403-2-3</span><span class="file-meta">18:08 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-2nd-11503-2-1</span><span class="file-meta">18:14 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-            </div>
+        <h2 id="b2-2nd" class="section-title">🍡 B2 Level - 2nd Review 🍭</h2>
+        <div class="file-list">
+            <a href="B2-2nd-11303-2-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-2nd-11303-2-1</span></a>
+            <a href="B2-2nd-11303-2-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-2nd-11303-2-2</span></a>
+            <a href="B2-2nd-11303-2-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-2nd-11303-2-3</span></a>
+            <a href="B2-2nd-11303-2-4.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-2nd-11303-2-4</span></a>
+            <a href="B2-2nd-11403-2-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-2nd-11403-2-1</span></a>
+            <a href="B2-2nd-11403-2-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-2nd-11403-2-2</span></a>
+            <a href="B2-2nd-11403-2-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-2nd-11403-2-3</span></a>
+            <a href="B2-2nd-11503-2-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-2nd-11503-2-1</span></a>
+            <a href="B2-2nd-11503-2-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-2nd-11503-2-2</span></a>
+            <a href="B2-2nd-11503-2-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-2nd-11503-2-3</span></a>
+            <a href="B2-2nd-11503-2-4.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-2nd-11503-2-4</span></a>
         </div>
 
-        <div style="height: 40px;"></div>
-
-        <div id="b2-full">
-            <h2 class="section-title">👑 B2 Level - Full Mocks 💎</h2>
-            <div class="file-list">
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-2nd-11503-2-2</span><span class="file-meta">18:15 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-2nd-11503-2-3</span><span class="file-meta">18:17 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-2nd-11503-2-4</span><span class="file-meta">18:19 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-Full-11307-2-1</span><span class="file-meta">18:24 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-Full-11307-2-2</span><span class="file-meta">18:25 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-Full-11307-2-3</span><span class="file-meta">18:27 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-Full-11307-2-4</span><span class="file-meta">18:30 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-Full-11407-2-1</span><span class="file-meta">18:37 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-Full-11407-2-2</span><span class="file-meta">18:54 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-Full-11407-2-3</span><span class="file-meta">18:56 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-                <a href="#" class="file-item"><div class="file-icon blank"></div><div class="file-info"><span class="file-name">B2-Full-11407-2-4</span><span class="file-meta">19:01 - 19 KB</span></div><span class="download-icon">☁️</span></a>
-            </div>
+        <h2 id="b2-full" class="section-title">👑 B2 Level - Full Mocks 💎</h2>
+        <div class="file-list">
+            <a href="B2-Full-11307-2-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-Full-11307-2-1</span></a>
+            <a href="B2-Full-11307-2-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-Full-11307-2-2</span></a>
+            <a href="B2-Full-11307-2-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-Full-11307-2-3</span></a>
+            <a href="B2-Full-11307-2-4.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-Full-11307-2-4</span></a>
+            <a href="B2-Full-11407-2-1.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-Full-11407-2-1</span></a>
+            <a href="B2-Full-11407-2-2.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-Full-11407-2-2</span></a>
+            <a href="B2-Full-11407-2-3.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-Full-11407-2-3</span></a>
+            <a href="B2-Full-11407-2-4.html" class="file-item"><div class="file-icon">HTML</div><span class="file-name">B2-Full-11407-2-4</span></a>
         </div>
+    </div>
 
-    </div> <footer>
+    <footer>
         <p>Created with Love 💖 | Keep Studying, Cutie!</p>
     </footer>
+</div>
 
-</div> </body>
+</body>
 </html>
