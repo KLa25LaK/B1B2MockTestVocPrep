@@ -3,292 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英語單字挑戰練習 11402-1-4</title>
+    <title>模卷單字預習＋複習</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
-        body { font-family: 'Noto Sans TC', sans-serif; }
-        .progress-bar-transition { transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .option-button:active:not(:disabled) { transform: scale(0.98); }
-        .stats-card { background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Quicksand:wght@500;700&display=swap');
         
-        .btn-correct { 
-            background-color: #ecfdf5 !important; 
-            border-color: #10b981 !important; 
-            color: #065f46 !important; 
-        }
-        .btn-wrong { 
-            background-color: #fdf2f8 !important; 
-            border-color: #f472b6 !important; 
-            color: #db2777 !important; 
+        :root {
+            --primary-pink: #F06292;
+            --primary-purple: #B39DDB;
+            --soft-yellow: #FFF176;
+            --pastel-green: #A5D6A7;
         }
 
-        .modal-overlay {
-            background: rgba(0,0,0,0.5);
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 50;
+        body { font-family: 'Quicksand', 'Noto Sans TC', sans-serif; background-color: #E0E0E0; }
+
+        .outer-card {
+            width: 100%;
+            max-width: 500px;
+            height: auto; 
+            background: white;
+            border-radius: 2.5rem;
+            border: 10px solid var(--primary-pink);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .content-area { padding: 10px 15px 0 15px; }
+
+        .btn-base {
+            border-radius: 1.25rem;
+            font-weight: 800;
+            transition: all 0.2s;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            position: relative;
+        }
+        .btn-base:active { transform: translateY(1px); }
+
+        /* 選項按鈕優化：支援長單字縮放與中文換行 */
+        .opt-btn { 
+            background: white; 
+            border: 3px solid #F1F5F9; 
+            color: #64748B; 
+            min-height: 72px; 
+            height: auto;
+            width: 100%; 
+            padding: 8px 35px 8px 12px;
+            line-height: 1.2;
+            text-align: center;
+        }
+        
+        .opt-text {
+            display: block;
+            width: 100%;
+            word-break: break-all;
+            overflow: hidden;
+            font-size: clamp(0.9rem, 4vw, 1.35rem); 
+        }
+        
+        .feedback-icon {
+            position: absolute;
+            right: 6px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+
+        .footer-nav { display: flex; gap: 0; padding: 0; margin-top: 10px; }
+        .footer-nav .btn-base { border-radius: 0; flex: 1; height: 75px; font-size: 1.4rem; }
+        .nav-yellow { background: var(--soft-yellow); color: #827717; }
+        .nav-pink { background: var(--primary-pink); color: white; }
+
+        .progress-bar-fill { transition: width 0.4s ease; background: var(--primary-purple); }
+
+        .overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 100;
+        }
+        .modal-content {
+            background: white; padding: 20px; border-radius: 2rem; width: 80%; max-width: 350px;
+            text-align: center; border: 4px solid var(--soft-yellow); box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .custom-heart {
+            width: 28px; height: 28px; background-color: var(--primary-pink);
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain;
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-1 sm:p-4">
+<body class="min-h-screen flex items-center justify-center p-4">
 
-    <div class="bg-white w-full max-w-xl rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden fade-in border-[10px] border-pink-400">
-        <div id="history-panel" class="px-4 py-1.5 sm:px-6 sm:py-2 stats-card border-b border-gray-200">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center gap-3 text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-widest">
-                    <span>個人練習: <span id="total-attempts" class="text-indigo-600 font-mono text-sm">0</span> 次</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="px-1 py-0.5 text-pink-400 rounded text-[10px] font-bold">總練習人次</span>
-                    <span id="global-plays" class="text-base sm:text-lg font-mono font-bold text-pink-400">--</span>
-                </div>
-            </div>
-        </div>
-
-        <div id="progress-area" class="px-4 py-2 sm:px-6 sm:py-3 bg-white border-b border-gray-100 hidden">
-            <div class="flex items-center gap-3">
-                <div class="flex-grow h-2 bg-purple-100 rounded-full overflow-hidden shadow-inner">
-                    <div id="progress-bar" class="progress-bar-transition h-full bg-purple-400 w-0"></div>
-                </div>
-                <div class="text-base sm:text-lg font-mono font-bold text-gray-700 whitespace-nowrap">
-                    <span id="current-count">0</span> / <span id="total-count">25</span>
-                </div>
-            </div>
-            
-            <div class="flex justify-between items-center mt-1 px-1">
-                <div class="flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    <span class="text-xs sm:text-sm font-bold text-emerald-600">答對: <span id="stat-correct">0</span></span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-                    <span class="text-xs sm:text-sm font-bold text-red-500">答錯: <span id="stat-wrong">0</span></span>
+    <div class="outer-card">
+        <div id="confirm-modal" class="overlay">
+            <div class="modal-content">
+                <h3 id="modal-title" class="text-xl font-black text-slate-700 mb-1">確定嗎？</h3>
+                <p id="modal-desc" class="text-slate-400 text-sm mb-4"></p>
+                <div class="flex gap-4">
+                    <button id="modal-no" class="btn-base bg-slate-100 text-slate-500 flex-1 py-3">取消</button>
+                    <button id="modal-yes" class="btn-base bg-yellow-400 text-white flex-1 py-3">確定</button>
                 </div>
             </div>
         </div>
 
-        <div id="main-container" class="p-2 sm:p-5 flex flex-col justify-center">
-            
-            <div id="start-screen" class="text-center py-4 sm:py-6 flex flex-col items-center space-y-4">
-                <h2 class="text-3xl sm:text-4xl font-black text-purple-400 drop-shadow-sm">單字大挑戰</h2>
-                <p class="text-xl sm:text-2xl font-bold text-gray-400">11402-1-4</p>
-                
-                <div class="flex justify-center gap-2 text-pink-300">
-                    <svg class="w-7 h-7 sm:w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                    <svg class="w-7 h-7 sm:w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                    <svg class="w-7 h-7 sm:w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                    <svg class="w-7 h-7 sm:w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                    <svg class="w-7 h-7 sm:w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <div class="content-area">
+            <div id="game-info" class="hidden mb-1">
+                <div class="w-full h-4 bg-slate-100 rounded-full overflow-hidden mb-1">
+                    <div id="progress-bar" class="progress-bar-fill h-full w-0"></div>
                 </div>
-
-                <button id="btn-start-new" class="w-full bg-purple-400 hover:bg-purple-500 text-white font-bold py-3 px-8 rounded-xl transition shadow-lg shadow-purple-200 text-xl text-center font-black">
-                    開始挑戰
-                </button>
+                <div class="flex justify-between items-center text-[9px] font-black text-slate-400 uppercase leading-none">
+                    <span class="text-green-500">CORRECT: <span id="live-correct">0</span></span>
+                    <span><span id="current-idx">0</span> / <span id="total-idx">23</span></span>
+                    <span class="text-pink-500">WRONG: <span id="live-wrong">0</span></span>
+                </div>
+                <div class="text-right mt-1">
+                    <span class="text-slate-400 font-black" style="font-size: 10px;">B1-1st-11402-1-4</span>
+                </div>
             </div>
 
-            <div id="question-area" class="hidden text-center space-y-1">
-                <p id="mode-hint" class="text-[11px] sm:text-sm text-purple-400 font-bold tracking-widest uppercase"></p>
-                <h2 id="question-text" class="text-3xl sm:text-4xl font-bold text-gray-800 mb-1.5 text-center leading-tight">載入中...</h2>
-                <div id="options-grid" class="grid grid-cols-2 gap-2 sm:gap-3 mb-1.5"></div>
-                <button id="btn-next-question" class="hidden w-full bg-purple-400 hover:bg-purple-500 text-white font-bold py-2.5 px-8 rounded-xl transition shadow-lg shadow-purple-200 flex items-center justify-center gap-2 text-lg">
-                    <span>下一題</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </button>
+            <div id="screen-start" class="flex flex-col items-center py-6">
+                <h1 class="text-4xl font-black text-slate-600 mb-2">模卷單字預習＋複習</h1>
+                <p class="text-3xl font-black text-slate-400 mb-4">B1-1st-11402-1-4</p>
+                <div class="flex gap-2.5 mb-8">
+                    <div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div><div class="custom-heart"></div>
+                </div>
+                <button id="btn-play" class="btn-base bg-[--primary-purple] text-white h-[75px] w-full text-2xl shadow-lg" style="border-radius: 2rem;">開始測驗</button>
             </div>
 
-            <div id="result-area" class="hidden text-center py-4">
-                <div id="result-emoji" class="text-5xl mb-2 text-center">🎉</div>
-                <h3 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-1">測驗結束！</h3>
-                <p id="result-stats" class="text-gray-600 mb-4 text-lg whitespace-pre-line text-center"></p>
-                <button id="btn-review" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-xl transition shadow-lg shadow-emerald-200 text-lg">
-                    針對錯字複習
-                </button>
+            <div id="screen-quiz" class="hidden flex-col items-center">
+                <p id="quiz-mode" class="text-[9px] font-black text-slate-300 tracking-widest uppercase mb-1 mt-1"></p>
+                <h2 id="quiz-question" class="text-4xl font-black text-slate-700 leading-none mb-4 text-center"></h2>
+                <div id="options-grid" class="grid grid-cols-2 gap-1.5 w-full"></div>
+                <button id="btn-next" class="invisible mt-3 btn-base bg-[--primary-purple] text-white w-full" style="height: 52px; font-size: 1.4rem; border-radius: 1.25rem;">下一題 ➔</button>
+            </div>
+
+            <div id="screen-result" class="hidden flex-col items-center text-center py-6">
+                <div class="text-6xl mb-2">✨</div>
+                <h2 class="text-2xl font-black text-slate-700 mb-1">測驗完成！</h2>
+                <p id="result-score" class="text-slate-400 font-bold mb-4"></p>
+                <button id="btn-review-wrong" class="hidden btn-base w-full py-4 text-white font-black text-xl mb-2" style="background-color: var(--pastel-green);">針對錯題複習</button>
+                <button id="btn-play-again" class="btn-base bg-[--primary-purple] text-white w-full py-4 text-xl">全部重新開始</button>
             </div>
         </div>
 
-        <div class="px-2 py-1.5 sm:px-3 sm:py-2.5 bg-gray-50 flex gap-1.5 border-t border-gray-100">
-            <button id="btn-back-prev" class="flex-1 bg-sky-400 hover:bg-sky-500 text-white font-bold py-2 px-1 rounded-xl transition shadow flex items-center justify-center gap-1 text-[12px]">
-                上一頁
-            </button>
-            <button id="btn-restart" class="flex-1 bg-amber-300 hover:bg-amber-400 text-white font-bold py-2 px-1 rounded-xl transition shadow flex items-center justify-center gap-1 text-[12px]">
-                重新開始
-            </button>
-            <button id="btn-go-home" class="flex-1 bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-1 rounded-xl transition shadow flex items-center justify-center gap-1 text-[12px]">
-                主頁
-            </button>
-        </div>
-    </div>
-
-    <div id="confirm-modal" class="modal-overlay hidden">
-        <div class="bg-white rounded-2xl p-6 w-full max-w-xs shadow-2xl text-center space-y-4 border-4 border-amber-300">
-            <h3 class="text-xl font-bold text-gray-800">確定重新開始嗎？</h3>
-            <p class="text-gray-500 text-sm">這將會清除目前的作答進度喔！</p>
-            <div class="flex gap-3">
-                <button id="confirm-no" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 rounded-xl">取消</button>
-                <button id="confirm-yes" class="flex-1 bg-amber-400 hover:bg-amber-500 text-white font-bold py-2 rounded-xl">確定</button>
-            </div>
+        <div id="footer" class="footer-nav">
+            <button id="nav-restart" class="btn-base nav-yellow hidden">重新開始遊戲</button>
+            <button id="nav-home" class="btn-base nav-pink">回到主頁</button>
         </div>
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, onSnapshot, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        const WORDS = [
+            {en: "Unanimous", ch: "(adj.) 全體一致的"}, {en: "Transformation", ch: "(n.) 轉變；轉型"}, {en: "Heritage", ch: "(n.) 遺產；繼承物"},
+            {en: "Spiritual", ch: "(adj.) 心靈的；精神上的"}, {en: "Magnificent", ch: "(adj.) 壯麗的"}, {en: "Vanish", ch: "(v.) 消失"},
+            {en: "Deserve", ch: "(v.) 應得"}, {en: "Anxiety", ch: "(n.) 焦慮"}, {en: "Luxurious", ch: "(adj.) 奢華的"},
+            {en: "Recognize", ch: "(v.) 辨認；認可"}, {en: "Commercial", ch: "(adj.) 商業的"}, {en: "Summary", ch: "(n.) 摘要"},
+            {en: "Judgment", ch: "(n.) 判斷"}, {en: "Trend", ch: "(n.) 趨勢"}, {en: "Professional", ch: "(adj.) 專業的"},
+            {en: "Ancient", ch: "(adj.) 古代的"}, {en: "Settlement", ch: "(n.) 定居點；殖民地"}, {en: "Phenomenon", ch: "(n.) 現象"},
+            {en: "Furthermore", ch: "(adv.) 此外"}, {en: "Involve", ch: "(v.) 涉及；包含"}, {en: "Resource", ch: "(n.) 資源"},
+            {en: "Effective", ch: "(adj.) 有效的"}, {en: "Eager", ch: "(adj.) 渴望的"}
+        ];
 
-        const CONFIG = {
-            title: "單字大挑戰 11402-1-4",
-            unitId: "11402_1_4", 
-            words: [
-                {en: "necessity", ch: "必需品；必要性"}, {en: "noble", ch: "高尚的；貴族的"}, {en: "objective", ch: "目標；客觀的"},
-                {en: "obvious", ch: "明顯的"}, {en: "opportunity", ch: "機會"}, {en: "opposite", ch: "相反的；在...對面"},
-                {en: "origin", ch: "起源"}, {en: "original", ch: "最初的；獨創的"}, {en: "outdoor", ch: "戶外的"},
-                {en: "participant", ch: "參與者"}, {en: "perception", ch: "感知；察覺"}, {en: "performance", ch: "表演；表現"},
-                {en: "perseverance", ch: "毅力；不屈不撓"}, {en: "persuade", ch: "說服"}, {en: "phenomenon", ch: "現象"},
-                {en: "pollution", ch: "污染"}, {en: "precision", ch: "精確"}, {en: "predict", ch: "預測"},
-                {en: "previous", ch: "先前的"}, {en: "proportion", ch: "比例；部分"}, {en: "propose", ch: "提議；求婚"},
-                {en: "reasonable", ch: "合理的"}, {en: "recovery", ch: "痊癒；恢復"}, {en: "reference", ch: "參考；提及"},
-                {en: "registration", ch: "註冊；登記"}
-            ] 
-        };
+        let currentPool = [], currentIndex = 0, correctCount = 0, wrongCount = 0;
+        let wrongWords = [], currentQuestion = {}, pendingAction = null;
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'vocab-quiz-11402-1-4';
-        let db, auth, quizPool = [], currentIndex = 0, wrongWords = [], currentWord = {}, isReviewMode = false, correctCount = 0, wrongCount = 0, currentUser = null;
-
-        const checkIcon = `<svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="3"></circle></svg>`;
-        const crossIcon = `<svg class="w-5 h-5 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>`;
-
-        function switchScreen(screenId) {
-            ['start-screen', 'question-area', 'result-area'].forEach(s => document.getElementById(s).classList.add('hidden'));
-            document.getElementById(screenId).classList.remove('hidden');
-            document.getElementById('progress-area').classList.toggle('hidden', screenId !== 'question-area');
+        function showScreen(name) {
+            ['screen-start', 'screen-quiz', 'screen-result'].forEach(id => {
+                const el = document.getElementById(id);
+                el.classList.add('hidden'); el.classList.remove('flex');
+            });
+            const target = document.getElementById(`screen-${name}`);
+            target.classList.remove('hidden'); target.classList.add('flex');
+            document.getElementById('game-info').classList.toggle('hidden', name !== 'quiz');
+            document.getElementById('nav-restart').classList.toggle('hidden', name === 'start');
         }
 
-        const initApp = async () => {
-            try {
-                if (typeof __firebase_config === 'undefined' || !__firebase_config) return;
-                const app = initializeApp(JSON.parse(__firebase_config));
-                auth = getAuth(app);
-                db = getFirestore(app);
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) await signInWithCustomToken(auth, __initial_auth_token);
-                else await signInAnonymously(auth);
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        currentUser = user;
-                        onSnapshot(doc(db, 'artifacts', appId, 'users', user.uid, 'stats', CONFIG.unitId), (s) => {
-                            if (s.exists()) document.getElementById('total-attempts').innerText = s.data().totalAttempts || 0;
-                        });
-                        onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'global_counters', CONFIG.unitId), (s) => {
-                            document.getElementById('global-plays').innerText = s.exists() ? s.data().totalPlays : 0;
-                        });
-                    }
-                });
-            } catch (e) { console.warn(e); }
-        };
-
-        const recordCompletion = async () => {
-            if (!currentUser || !db) return;
-            try {
-                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'global_counters', CONFIG.unitId), { totalPlays: increment(1) }, { merge: true });
-                await setDoc(doc(db, 'artifacts', appId, 'users', currentUser.uid, 'stats', CONFIG.unitId), { totalAttempts: increment(1), lastCompleted: new Date().toISOString() }, { merge: true });
-            } catch (e) { console.error(e); }
-        };
-
-        function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
-
-        function initQuiz(isReview) {
-            isReviewMode = isReview;
-            quizPool = isReview ? [...wrongWords] : [...CONFIG.words];
-            shuffle(quizPool);
-            if (!isReview) wrongWords = [];
+        function initGame(mode = 'all') {
+            currentPool = (mode === 'review') ? [...wrongWords] : [...WORDS];
+            currentPool.sort(() => Math.random() - 0.5);
             currentIndex = 0; correctCount = 0; wrongCount = 0;
-            updateStatsUI();
-            document.getElementById('total-count').innerText = quizPool.length;
+            if(mode === 'all') wrongWords = [];
             document.getElementById('progress-bar').style.width = '0%';
-            switchScreen('question-area');
-            showQuestion();
+            updateStatsUI(); showScreen('quiz'); renderQuestion();
         }
 
-        function updateStatsUI() {
-            document.getElementById('stat-correct').innerText = correctCount;
-            document.getElementById('stat-wrong').innerText = wrongCount;
-        }
-
-        function showQuestion() {
-            if (currentIndex >= quizPool.length) { showResult(); return; }
-            const progress = (currentIndex / quizPool.length) * 100;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
-            document.getElementById('current-count').innerText = currentIndex + 1;
-            document.getElementById('btn-next-question').classList.add('hidden');
-            const wordData = quizPool[currentIndex];
+        function renderQuestion() {
+            if (currentIndex >= currentPool.length) { showResult(); return; }
+            const data = currentPool[currentIndex];
             const isEnToCh = Math.random() > 0.5;
-            currentWord = { q: isEnToCh ? wordData.en : wordData.ch, a: isEnToCh ? wordData.ch : wordData.en, original: wordData };
-            document.getElementById('mode-hint').innerText = isEnToCh ? "英選中" : "中選英";
-            document.getElementById('question-text').innerText = currentWord.q;
-            let options = [currentWord.a];
-            while (options.length < 4) {
-                let r = CONFIG.words[Math.floor(Math.random() * CONFIG.words.length)];
-                let v = isEnToCh ? r.ch : r.en;
-                if (!options.includes(v)) options.push(v);
+            currentQuestion = { q: isEnToCh ? data.en : data.ch, a: isEnToCh ? data.ch : data.en, raw: data };
+            document.getElementById('quiz-mode').innerText = isEnToCh ? "ENGLISH TO CHINESE" : "CHINESE TO ENGLISH";
+            document.getElementById('quiz-question').innerText = currentQuestion.q;
+            document.getElementById('btn-next').classList.add('invisible');
+
+            let distractors = WORDS.filter(w => w.en !== data.en).sort(() => Math.random() - 0.5).slice(0, 3).map(w => isEnToCh ? w.ch : w.en);
+            let correctPos = currentIndex % 4; // 絕對平均分配
+            let options = []; let distractorIdx = 0;
+            for (let i = 0; i < 4; i++) {
+                if (i === correctPos) options.push(currentQuestion.a);
+                else { options.push(distractors[distractorIdx]); distractorIdx++; }
             }
-            shuffle(options);
+
             const grid = document.getElementById('options-grid');
             grid.innerHTML = '';
             options.forEach(opt => {
-                const b = document.createElement('button');
-                b.className = "option-button bg-white border-2 border-gray-200 hover:border-indigo-500 p-2 sm:p-3 rounded-xl text-base sm:text-lg text-gray-700 transition-all font-medium text-center leading-snug";
-                b.innerText = opt;
-                b.onclick = () => checkAnswer(opt, b);
-                grid.appendChild(b);
+                const btn = document.createElement('button');
+                btn.className = 'btn-base opt-btn';
+                btn.innerHTML = `<span class="opt-text">${opt}</span><span class="feedback-icon"></span>`;
+                btn.onclick = () => {
+                    const btns = grid.querySelectorAll('.opt-btn');
+                    btns.forEach(b => b.disabled = true);
+                    const icon = btn.querySelector('.feedback-icon');
+                    if (opt === currentQuestion.a) {
+                        btn.style.backgroundColor = '#E8F5E9'; btn.style.borderColor = '#81C784'; btn.style.color = '#2E7D32';
+                        icon.innerText = '○'; icon.style.color = '#2E7D32';
+                        correctCount++;
+                    } else {
+                        btn.style.backgroundColor = '#FFEBEE'; btn.style.borderColor = '#E57373'; btn.style.color = '#C62828';
+                        icon.innerText = '×'; icon.style.color = '#C62828';
+                        wrongCount++;
+                        if (!wrongWords.some(w => w.en === currentQuestion.raw.en)) wrongWords.push(currentQuestion.raw);
+                        btns.forEach(b => {
+                            if(b.querySelector('.opt-text').innerText === currentQuestion.a) {
+                                b.style.borderColor = '#81C784';
+                                b.querySelector('.feedback-icon').innerText = '○';
+                                b.querySelector('.feedback-icon').style.color = '#81C784';
+                            }
+                        });
+                    }
+                    updateStatsUI(true); document.getElementById('btn-next').classList.remove('invisible');
+                };
+                grid.appendChild(btn);
             });
         }
 
-        function checkAnswer(selected, b) {
-            document.querySelectorAll('.option-button').forEach(btn => btn.disabled = true);
-            if (selected === currentWord.a) {
-                correctCount++;
-                b.classList.add('btn-correct');
-                b.innerHTML = `<div class="flex items-center justify-center gap-2"><span>${selected}</span> ${checkIcon}</div>`;
-            } else {
-                wrongCount++;
-                b.classList.add('btn-wrong');
-                b.innerHTML = `<div class="flex items-center justify-center gap-2"><span>${selected}</span> ${crossIcon}</div>`;
-                document.querySelectorAll('.option-button').forEach(btn => {
-                    if (btn.innerText === currentWord.a) {
-                        btn.classList.add('btn-correct');
-                        btn.innerHTML = `<div class="flex items-center justify-center gap-2"><span>${currentWord.a}</span> ${checkIcon}</div>`;
-                    }
-                });
-                if (!wrongWords.some(w => w.en === currentWord.original.en)) wrongWords.push(currentWord.original);
+        function updateStatsUI(isAnswered = false) {
+            document.getElementById('live-correct').innerText = correctCount;
+            document.getElementById('live-wrong').innerText = wrongCount;
+            document.getElementById('total-idx').innerText = currentPool.length;
+            const displayIdx = isAnswered ? currentIndex + 1 : currentIndex;
+            document.getElementById('current-idx').innerText = displayIdx;
+            if (isAnswered) {
+                const percent = ((currentIndex + 1) / currentPool.length) * 100;
+                document.getElementById('progress-bar').style.width = `${percent}%`;
             }
-            updateStatsUI();
-            document.getElementById('progress-bar').style.width = `${((currentIndex + 1) / quizPool.length) * 100}%`;
-            document.getElementById('btn-next-question').classList.remove('hidden');
         }
 
         function showResult() {
-            switchScreen('result-area');
-            document.getElementById('result-stats').innerText = `本局表現：答對 ${correctCount} / ${quizPool.length}\n錯字：${wrongWords.length} 個`;
-            if (!isReviewMode) recordCompletion();
+            showScreen('result');
+            document.getElementById('result-score').innerText = `正確 ${correctCount} · 錯誤 ${wrongCount}`;
+            const rb = document.getElementById('btn-review-wrong');
+            if (wrongWords.length > 0) rb.classList.remove('hidden'); else rb.classList.add('hidden');
         }
 
-        document.getElementById('btn-start-new').addEventListener('click', () => initQuiz(false));
-        document.getElementById('btn-review').addEventListener('click', () => initQuiz(true));
-        document.getElementById('btn-next-question').addEventListener('click', () => { currentIndex++; showQuestion(); });
-        document.getElementById('btn-restart').addEventListener('click', () => document.getElementById('confirm-modal').style.display = 'flex');
-        document.getElementById('confirm-no').addEventListener('click', () => document.getElementById('confirm-modal').style.display = 'none');
-        document.getElementById('confirm-yes').addEventListener('click', () => { document.getElementById('confirm-modal').style.display = 'none'; initQuiz(false); });
-        document.getElementById('btn-go-home').addEventListener('click', () => switchScreen('start-screen'));
-        document.getElementById('btn-back-prev').addEventListener('click', () => window.history.length > 1 ? window.history.back() : switchScreen('start-screen'));
-        initApp();
+        document.getElementById('nav-restart').onclick = () => {
+            if (!document.getElementById('screen-quiz').classList.contains('hidden')) {
+                document.getElementById('modal-title').innerText = "重新開始遊戲？";
+                document.getElementById('modal-desc').innerText = "將回到封面，進度將被重置。";
+                document.getElementById('confirm-modal').style.display = 'flex';
+                pendingAction = () => showScreen('start');
+            } else showScreen('start');
+        };
+
+        document.getElementById('nav-home').onclick = () => {
+            if (!document.getElementById('screen-quiz').classList.contains('hidden')) {
+                document.getElementById('modal-title').innerText = "回到主頁面？";
+                document.getElementById('modal-desc').innerText = "將離開遊戲，回到 index 頁面。";
+                document.getElementById('confirm-modal').style.display = 'flex';
+                pendingAction = () => { window.location.href = 'index.html'; };
+            } else window.location.href = 'index.html';
+        };
+
+        document.getElementById('modal-no').onclick = () => document.getElementById('confirm-modal').style.display = 'none';
+        document.getElementById('modal-yes').onclick = () => { 
+            document.getElementById('confirm-modal').style.display = 'none'; if(pendingAction) pendingAction(); 
+        };
+
+        document.getElementById('btn-play').onclick = () => initGame('all');
+        document.getElementById('btn-play-again').onclick = () => initGame('all');
+        document.getElementById('btn-review-wrong').onclick = () => initGame('review');
+        document.getElementById('btn-next').onclick = () => { currentIndex++; updateStatsUI(false); renderQuestion(); };
+
+        showScreen('start');
     </script>
 </body>
 </html>
